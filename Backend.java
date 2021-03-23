@@ -6,8 +6,9 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.NoSuchElementException;
+import java.util.stream.Stream;
 import java.util.zip.DataFormatException;
-//import RedBlackTree.Node;
+//import RedBlackTree.Node<RestaurantInterface>;
 //import RedBlackTree.Node;
 import java.io.Reader;
 import java.io.FileReader;
@@ -56,37 +57,34 @@ public class Backend implements BackendInterface {
   }
   
   public Stream<RestaurantInterface> getRestaurantByRank(int id){
-		RedBlackTree.Node current = root;
+    RedBlackTree.Node<RestaurantInterface> current = tree.root;
     List<RestaurantInterface> list = new LinkedList<RestaurantInterface>();
-		while(current!=null){
-			if(current.data.getRank()==id){
-				list.add(current.data);
+    while(current!=null){
+      if(current.data.getRank() == id){
+        list.add(current.data);
         return list.stream();
-			}else if(current.data>id){
-				current = current.left;
-			}else{
-				current = current.right;
-			}
-		}
-		return null;
-	}
+      } else if(current.data.getRank() > id){
+        current = current.leftChild;
+      } else{
+        current = current.rightChild;
+      }
+    }
+    return null;
+  }
   
-  @Override
+  //@Override
   public Stream<RestaurantInterface> getTopRestaurants(int limit) {
     // TODO Auto-generated method stub
     // return restaurantNames;
 
-    LinkedList<String> rs = new LinkedList<>();
+    LinkedList<RestaurantInterface> rs = new LinkedList<>();
     int current = 0;
 
     inOrderTraversalState(tree.root, (RedBlackTree.Node node) -> {
-      if (current < limit) {
-        rs.add(((RestaurantInterface) node.data).getRestaurantName());
-        current++;
-      }
+      if (current < limit) { rs.add(((RestaurantInterface) node.data)); }
     });
 
-    return rs.stream();
+    return rs.subList(0, limit).stream();
   }
   
   @Override
@@ -150,7 +148,7 @@ public class Backend implements BackendInterface {
       cityList.add(restaurant.getCity());
   }
   
-  private List<RestaurantInterface> stateHelper(String state) {
+  private LinkedList<RestaurantInterface> stateHelper(String state) {
     LinkedList<RestaurantInterface> rs = new LinkedList<>();
 
     inOrderTraversalState(tree.root, (RedBlackTree.Node node) -> {
@@ -169,9 +167,9 @@ public class Backend implements BackendInterface {
 
     return rs;
   }
-	
+    
   @Override
-  public List<RestaurantInterface> getRestaurantsInState(String state) {
+  public Stream<RestaurantInterface> getRestaurantsInState(String state) {
     // TODO Auto-generated method stub
     return stateHelper(state).stream();
   }
@@ -186,18 +184,15 @@ public class Backend implements BackendInterface {
         rs.add((RestaurantInterface) node.data);
     });
 
-    if (!rs.isEmpty())
-      return rs.stream();
-    else
-      return null;
+    return rs.stream();
   }
-	
-  public LinkedList<LinkedList<RestaurantInterface>> getAllStateRestaurants() {
-	LinkedList<LinkedList<RestaurantInterface>> list = new LinkedList<>();
-	for (String state : stateList) {
-		list.add(stateHelper(state));
-	}
-	return list;
+    
+  public List<LinkedList<RestaurantInterface>> getAllStateRestaurants() {
+    LinkedList<LinkedList<RestaurantInterface>> list = new LinkedList<>();
+    for (String state : stateList) {
+        list.add(stateHelper(state));
+    }
+    return list;
   }
 
 }
