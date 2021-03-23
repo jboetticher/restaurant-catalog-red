@@ -34,7 +34,7 @@ public class FrontEndDeveloper {
 
 	//Method for the Rank screen---------------------------------------------------
 	// arguments are the scanner object for button functionality and the linked List of restaurant objects
-	private static char rankScreen(Scanner scan, List<RestaurantInterface> book ) {
+	private static char rankScreen(Scanner scan, Backend book ) {
 
 
 		//List all Restaurants by Rank - Press "l"
@@ -86,7 +86,7 @@ public class FrontEndDeveloper {
 
 	//Method for the Map Screen---------------------------------------------------
 	// arguments are the scanner object for button functionality and the linked List of restaurant objects
-	private static char mapScreen(Scanner scan, List<RestaurantInterface> book ) {
+	private static char mapScreen(Scanner scan, Backend book ) {
 
 		System.out.println("press \"l\" to displays ALL the states that have restaurants in the top 100 ranking to see if your state has one of the top 100 places to eat!");
 		System.out.println("press \"s\" to display ALL restaurants by state");
@@ -155,7 +155,7 @@ public class FrontEndDeveloper {
 
 	//Method for the info Screen---------------------------------------------------
 	// arguments are the scanner object for button functionality and the linked List of restaurant objects
-	private static char infoScreen(Scanner scan, List<RestaurantInterface> book ) {
+	private static char infoScreen(Scanner scan, Backend book ) {
 
 
 		//info screen functionality
@@ -176,7 +176,9 @@ public class FrontEndDeveloper {
 			System.out.println("\nEnter a rank Number of a Restaurant to display all the information we have on that Establishment");
 			System.out.println("Enter a rank Number -only one digit between 1 and 100-");	
 			System.out.print("Enter rank Number:"); 
-			int numButton = scan.nextInt();
+
+			// have to subtract 1 to get the right rank, since it's indexed from 0.
+			int numButton = scan.nextInt() - 1;
 
 
 			if( numButton >= 1  && numButton <= 100 ) {
@@ -222,8 +224,9 @@ public class FrontEndDeveloper {
 
 
 		//CREATING READER OBJECT AND INPUTING CSV FILE
-		DataReader glasses = new DataReader();
-		List<RestaurantInterface> Book = glasses.readDataSet(new FileReader("Independence100.csv"));
+		Backend book = new Backend(new FileReader("Independence100.csv"));
+		//DataReader glasses = new DataReader();
+		//List<RestaurantInterface> Book = glasses.readDataSet(new FileReader("Independence100.csv"));
 
 
 		//Below is the code that manages the Button Interaction to switch through screens*---------------------------------------------------
@@ -251,7 +254,7 @@ public class FrontEndDeveloper {
 
 				System.out.println("\nRANK SCREEN");
 				// runs the rankScreen method
-				userButton = rankScreen(scnr, Book);
+				userButton = rankScreen(scnr, book);
 
 				//returns user back to screen
 				if (userButton == 'l' || userButton == 's') {
@@ -266,7 +269,7 @@ public class FrontEndDeveloper {
 
 				System.out.println("\nMAP SCREEN");
 				// runs the map screen method
-				userButton = mapScreen(scnr, Book);
+				userButton = mapScreen(scnr, book);
 
 				//returns user back to screen
 				if (userButton == 'l' || userButton == 's') {
@@ -280,7 +283,7 @@ public class FrontEndDeveloper {
 
 				System.out.println("\nINFORMOATION SCREEN");
 				// runs the infoScreen Method
-				userButton = infoScreen(scnr, Book);
+				userButton = infoScreen(scnr, book);
 
 				//returns user back to screen
 				if (userButton == 'n') {;
