@@ -54,7 +54,41 @@ public class Backend implements BackendInterface {
     if (node.leftChild != null)
       inOrderTraversalState(node.leftChild, t);
   }
+  
+  public Stream<RestaurantInterface> getRestaurantByRank(int id){
+		RedBlackTree.Node current = root;
+    List<RestaurantInterface> list = new LinkedList<RestaurantInterface>();
+		while(current!=null){
+			if(current.data.getRank()==id){
+				list.add(current.data);
+        return list.stream();
+			}else if(current.data>id){
+				current = current.left;
+			}else{
+				current = current.right;
+			}
+		}
+		return null;
+	}
+  
+  @Override
+  public Stream<RestaurantInterface> getTopRestaurants(int limit) {
+    // TODO Auto-generated method stub
+    // return restaurantNames;
 
+    LinkedList<String> rs = new LinkedList<>();
+    int current = 0;
+
+    inOrderTraversalState(tree.root, (RedBlackTree.Node node) -> {
+      if (current < limit) {
+        rs.add(((RestaurantInterface) node.data).getRestaurantName());
+        current++;
+      }
+    });
+
+    return rs.stream();
+  }
+  
   @Override
   public List<String> getAllRestaurantNames() {
     // TODO Auto-generated method stub
