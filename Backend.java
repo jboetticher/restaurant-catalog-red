@@ -43,11 +43,21 @@ public class Backend implements BackendInterface {
     }
   }
 
+  /**
+   * Traverser interface to use for the inOrderTraversalState class
+   * @author rudyb
+   *
+   * @param <NodeType>
+   */
   public static interface Traverser<NodeType> {
     public void visit(RedBlackTree.Node<NodeType> node);
   }
 
-  // Traverse the RedBlackTree in order
+  /**
+   * Traverses the tree in an inorder traversal
+   * @param node - current node
+   * @param t - traverser object to provide visit rule for the method
+   */
   private void inOrderTraversalState(RedBlackTree.Node<RestaurantInterface> node, Traverser t) {
     if (node.rightChild != null)
       inOrderTraversalState(node.rightChild, t);
@@ -56,10 +66,15 @@ public class Backend implements BackendInterface {
       inOrderTraversalState(node.leftChild, t);
   }
   
+  /**
+   * Finds a restaurant by it's rank in the tree
+   * @param id - the rank of the restaurant
+   * @return - the restaurant at the specified rank
+   */
   public Stream<RestaurantInterface> getRestaurantByRank(int id){
     RedBlackTree.Node<RestaurantInterface> current = tree.root;
     List<RestaurantInterface> list = new LinkedList<RestaurantInterface>();
-    while(current!=null){
+    while(current != null){
       if(current.data.getRank() == id){
         list.add(current.data);
         return list.stream();
@@ -72,6 +87,11 @@ public class Backend implements BackendInterface {
     return null;
   }
   
+  /**
+   * Traverses the tree and returns a list of the top restaurants
+   * @param limit - the top number of restaurants to include
+   * @return - a list of the top restaurants by rank
+   */
   //@Override
   public Stream<RestaurantInterface> getTopRestaurants(int limit) {
     // TODO Auto-generated method stub
@@ -87,6 +107,9 @@ public class Backend implements BackendInterface {
     return rs.subList(0, limit).stream();
   }
   
+  /**
+   * Returns a String stream of all the restaurant names
+   */
   @Override
   public Stream<String> getAllRestaurantNames() {
     // TODO Auto-generated method stub
@@ -100,7 +123,10 @@ public class Backend implements BackendInterface {
 
     return rs.stream();
   }
-
+  
+  /**
+   * Returns an Integer stream of the number of sales for each restaurant in order of rank
+   */
   @Override
   public Stream<Integer> getAllNumSales() {
     // TODO Auto-generated method stub
@@ -113,18 +139,27 @@ public class Backend implements BackendInterface {
     return rs.stream();
   }
 
+  /**
+   * Returns a String stream of all the cities that restaurants are in
+   */
   @Override
   public Stream<String> getAllCities() {
     // TODO Auto-generated method stub
     return cityList.stream();
   }
-
+  
+  /**
+   * Returns a String stream of all the states that restaurants are in
+   */
   @Override
   public Stream<String> getAllStates() {
     // TODO Auto-generated method stub
     return stateList.stream();
   }
 
+  /**
+   * Returns an Integer stream of the number of meals served for each restaurant
+   */
   @Override
   public Stream<Integer> getNumMealsServed() {
     // TODO Auto-generated method stub
@@ -137,6 +172,9 @@ public class Backend implements BackendInterface {
     return rs.stream();
   }
 
+  /**
+   * Adds a restaurant to the Red Black Tree
+   */
   @Override
   public void addRestaurant(RestaurantInterface restaurant) {
     // TODO Auto-generated method stub
@@ -148,6 +186,11 @@ public class Backend implements BackendInterface {
       cityList.add(restaurant.getCity());
   }
   
+  /**
+   * Helper method for returning a list of all the restaurants in a particular state
+   * @param state the specified state
+   * @return a list of all the restaurants in a particular state
+   */
   private LinkedList<RestaurantInterface> stateHelper(String state) {
     LinkedList<RestaurantInterface> rs = new LinkedList<>();
 
@@ -156,24 +199,33 @@ public class Backend implements BackendInterface {
         rs.add((RestaurantInterface) node.data);
     });
 
+    // Bonus: an early implementation of an anonymous class for the traversal method
+    // March 22nd, 2021
+    
     /*
      * inOrderTraversalState(tree.root, new Traverser<RestaurantInterface,
      * RestaurantInterface>() {
      * 
      * @Override public void visit(RedBlackTree.Node<RestaurantInterface> node) { //
-     * TODO Auto-generated method stub //System.out.println("Success"); if
      * (node.data.getState().equals(state)) rs.add(node.data); } });
      */
 
     return rs;
   }
-    
+  
+  /**
+   * Returns a stream of restaurants in the given state
+   */
   @Override
   public Stream<RestaurantInterface> getRestaurantsInState(String state) {
     // TODO Auto-generated method stub
     return stateHelper(state).stream();
   }
 
+  /**
+   * Returns a stream of restaurant instance(s) by name
+   * (some restaurants have the same name but are located in different cities)
+   */
   @Override
   public Stream<RestaurantInterface> getRestaurant(String name) {
     // TODO Auto-generated method stub
@@ -186,7 +238,10 @@ public class Backend implements BackendInterface {
 
     return rs.stream();
   }
-    
+  
+  /**
+   * Returns a list of lists of all restaurants grouped by their state
+   */
   public List<LinkedList<RestaurantInterface>> getAllStateRestaurants() {
     LinkedList<LinkedList<RestaurantInterface>> list = new LinkedList<>();
     for (String state : stateList) {
