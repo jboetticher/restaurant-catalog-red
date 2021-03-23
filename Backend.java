@@ -90,7 +90,7 @@ public class Backend implements BackendInterface {
   }
   
   @Override
-  public List<String> getAllRestaurantNames() {
+  public Stream<String> getAllRestaurantNames() {
     // TODO Auto-generated method stub
     // return restaurantNames;
 
@@ -100,11 +100,11 @@ public class Backend implements BackendInterface {
       rs.add(((RestaurantInterface) node.data).getRestaurantName());
     });
 
-    return rs;
+    return rs.stream();
   }
 
   @Override
-  public List<Integer> getAllNumSales() {
+  public Stream<Integer> getAllNumSales() {
     // TODO Auto-generated method stub
     LinkedList<Integer> rs = new LinkedList<>();
 
@@ -112,23 +112,23 @@ public class Backend implements BackendInterface {
       rs.add(((RestaurantInterface) node.data).getNumSales());
     });
 
-    return rs;
+    return rs.stream();
   }
 
   @Override
-  public List<String> getAllCities() {
+  public Stream<String> getAllCities() {
     // TODO Auto-generated method stub
-    return cityList;
+    return cityList.stream();
   }
 
   @Override
-  public List<String> getAllStates() {
+  public Stream<String> getAllStates() {
     // TODO Auto-generated method stub
-    return stateList;
+    return stateList.stream();
   }
 
   @Override
-  public List<Integer> getNumMealsServed() {
+  public Stream<Integer> getNumMealsServed() {
     // TODO Auto-generated method stub
     LinkedList<Integer> rs = new LinkedList<>();
 
@@ -136,7 +136,7 @@ public class Backend implements BackendInterface {
       rs.add(((RestaurantInterface) node.data).getNumSales());
     });
 
-    return rs;
+    return rs.stream();
   }
 
   @Override
@@ -149,10 +149,8 @@ public class Backend implements BackendInterface {
     if (cityList.contains(restaurant.getCity()))
       cityList.add(restaurant.getCity());
   }
-
-  @Override
-  public List<RestaurantInterface> getRestaurantsInState(String state) {
-    // TODO Auto-generated method stub
+  
+  private List<RestaurantInterface> stateHelper(String state) {
     LinkedList<RestaurantInterface> rs = new LinkedList<>();
 
     inOrderTraversalState(tree.root, (RedBlackTree.Node node) -> {
@@ -171,9 +169,15 @@ public class Backend implements BackendInterface {
 
     return rs;
   }
+	
+  @Override
+  public List<RestaurantInterface> getRestaurantsInState(String state) {
+    // TODO Auto-generated method stub
+    return stateHelper(state).stream();
+  }
 
   @Override
-  public List<RestaurantInterface> getRestaurant(String name) {
+  public Stream<RestaurantInterface> getRestaurant(String name) {
     // TODO Auto-generated method stub
     LinkedList<RestaurantInterface> rs = new LinkedList<>();
 
@@ -183,7 +187,7 @@ public class Backend implements BackendInterface {
     });
 
     if (!rs.isEmpty())
-      return rs;
+      return rs.stream();
     else
       return null;
   }
