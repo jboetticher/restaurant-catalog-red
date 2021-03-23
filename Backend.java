@@ -191,5 +191,13 @@ public class Backend implements BackendInterface {
     else
       return null;
   }
+	
+  public LinkedList<LinkedList<RestaurantInterface>> getAllStateRestaurants() {
+	LinkedList<LinkedList<RestaurantInterface>> list = new LinkedList<>();
+	for (String state : stateList) {
+		list.add(stateHelper(state));
+	}
+	return list;
+  }
 
 }
