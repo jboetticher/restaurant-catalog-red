@@ -2,4 +2,4 @@ RedBlackTree.java
 SortedCollectionInterface.java
 TestRedBlackTree.java
 lib
-Makefile
+*.class
