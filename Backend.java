@@ -17,7 +17,6 @@ import java.io.StringReader;
 
 public class Backend implements BackendInterface {
 
-  private LinkedList<RestaurantInterface> restaurants;
   private RedBlackTree<RestaurantInterface> tree;
   private LinkedList<String> stateList;
   private LinkedList<String> cityList;
@@ -32,7 +31,7 @@ public class Backend implements BackendInterface {
     // tree
 
     DataReader data = new DataReader(file);
-    restaurants = data.readDataSet(file);
+    LinkedList<RestaurantInterface> restaurants = data.readDataSet(file);
 
     for (RestaurantInterface r : restaurants) {
       tree.insert(r);
