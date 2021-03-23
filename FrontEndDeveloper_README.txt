@@ -1,29 +1,26 @@
-FrontEndDeveloper README for Project Two (CS400 @ UW Madison)
-========================================================
 
-Name of FrontEndDeveloper: <enter your complete name here>
-@wisc.edu Email of FrontEndDeveloper: <enter your @wisc.edu email address here>
-Group: <enter your two letter group name here>
-Team: <enter your team color: red, blue, or purple, here>
+/*	
+	FrontEndDeveloper README for Project Two (CS400 @ UW Madison)
+	========================================================
 
-Files Written by Me:
---------------------
-<List all files that were within this project that were written by you, and
- include a short description of the purpose that each file servers>
+	Name of FrontEndDeveloper: Jaan Ots
+	@wisc.edu Email of FrontEndDeveloper: jots@wisc.edu
+	Group: KF
+	Team: purple
 
-Additional Contributions:
--------------------------
-<List any additional contributions that you have made toward your team's
- completion of this project.  This might include, but is not limited to things
- like: organizing team communication, creating extra tests or dummy classes,
- assisting team members in any way, etc.>
+	Files Written by Me:
+	--------------------
+	FrontEndDeveloper.java
+	TestFrondend.java
 
-Signature:
-----------
-<Type out your full name here to certify that all of the files written by you
- that are listed above are the product of your individual development efforts
- for this programming assignment.  List below your name, any exceptions, for 
- example: work reused from a previous semester, code examples taken from any 
- website or book, or anything that was not explicitly authored by you for
- the purpose of completing this assigned CS400 project.>
- 
+	Additional Contributions:
+	-------------------------
+	Helped explain the three week schedule at the start of the proposal phase to help the Integration Managers.
+	Pressed and helped sort out the Restaurant Interface in the proposal phase.
+
+	Signature:
+	----------
+	Jaan Ots
+
+
+*/
