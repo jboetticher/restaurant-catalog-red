@@ -46,19 +46,13 @@ public class FrontEndDeveloper {
 		System.out.println("Enter one of the above options then press <ENTER>");
 		System.out.print("Enter  option:");
 
-		// converts linked-list to stream with the .steam method and creates a stream
-		// object
-		// Stream<RestaurantInterface> printRanking = book.stream();
-
-		// TODO: make sure get top restaurants works
-		Stream<RestaurantInterface> printRanking = book.getTopRestaurants().stream();
-
 		// gets input from user
 		char localButton = scan.next().charAt(0);
 
 		// displays all restaurants if "l" entered
 		if (localButton == 'l') {
 			// prints rank and name using stream object
+			Stream<RestaurantInterface> printRanking = book.getTopRestaurants(1000);
 			printRanking.forEach(
 					a -> System.out.println("Rank: " + a.getRank() + "  -- restaurant Name: " + a.getRestaurantName()));
 			return localButton;
@@ -67,6 +61,7 @@ public class FrontEndDeveloper {
 		// short list if "S" entered
 		if (localButton == 's') {
 			System.out.println("Top ten ranked restaurant");
+			Stream<RestaurantInterface> printRanking = book.getTopRestaurants(10);
 
 			printRanking.filter(b -> b.getRank() <= 10).forEach(
 					a -> System.out.println("Rank: " + a.getRank() + "  -- restaurant Name: " + a.getRestaurantName()));
@@ -277,7 +272,7 @@ public class FrontEndDeveloper {
 			// return to the info Screen********************************
 			if (userButton == 'i') {
 
-				System.out.println("\nINFORMOATION SCREEN");
+				System.out.println("\nINFORMATION SCREEN");
 				// runs the infoScreen Method
 				userButton = infoScreen(scnr, book);
 
