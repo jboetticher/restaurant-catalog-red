@@ -1,8 +1,8 @@
-run:
-	@echo "FIXME: *make run* or just *make* should be the default target which compiles (when needed) and executes your code."
+run: compile
+	java FrontEndDeveloper
 
 compile:
-	@echo "FIXME: *make compile* should compile the code for your project"
+	javac SortedCollectionInterface.java RestaurantInterface.java Restaurant.java DataReaderInterface.java DataReader.java BackendInterface.java Backend.java FrontEndDeveloperInterface.java FrontEndDeveloper.java
 
 test: testData testBackend testFrontend
 
