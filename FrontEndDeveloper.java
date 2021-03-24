@@ -22,12 +22,14 @@ import java.util.NoSuchElementException;
 
 public class FrontEndDeveloper {
 
+private static int numRestaurantsRanked = 100; //default
+	
 	// Method that displays ONLY the TEXT of the interactive menu
 	public static void homeScreen() {
 		System.out.println("HOME SCREEN");
 		System.out.println("Press \"r\" for the Rank Screen to view the whole list");
 		System.out.println("Press \"m\" for the Map Screen to check locations");
-		System.out.println("Press \"i\" for the individual restaurant Information");
+		System.out.println("Press \"i\" for the individual restaurant Information or adding a Restaurant to the List");
 		System.out.println("Press \"q\" to Quit Program\n");
 		System.out.println("Enter one of the above options then press <ENTER>");
 		System.out.print("Enter  option:");
@@ -46,13 +48,19 @@ public class FrontEndDeveloper {
 		System.out.println("Enter one of the above options then press <ENTER>");
 		System.out.print("Enter  option:");
 
+		// converts linked-list to stream with the .steam method and creates a stream
+		// object
+		// Stream<RestaurantInterface> printRanking = book.stream();
+
+		// TODO: make sure get top restaurants works
+		Stream<RestaurantInterface> printRanking = book.getTopRestaurants().stream();
+
 		// gets input from user
 		char localButton = scan.next().charAt(0);
 
 		// displays all restaurants if "l" entered
 		if (localButton == 'l') {
 			// prints rank and name using stream object
-			Stream<RestaurantInterface> printRanking = book.getTopRestaurants(1000);
 			printRanking.forEach(
 					a -> System.out.println("Rank: " + a.getRank() + "  -- restaurant Name: " + a.getRestaurantName()));
 			return localButton;
@@ -61,7 +69,6 @@ public class FrontEndDeveloper {
 		// short list if "S" entered
 		if (localButton == 's') {
 			System.out.println("Top ten ranked restaurant");
-			Stream<RestaurantInterface> printRanking = book.getTopRestaurants(10);
 
 			printRanking.filter(b -> b.getRank() <= 10).forEach(
 					a -> System.out.println("Rank: " + a.getRank() + "  -- restaurant Name: " + a.getRestaurantName()));
@@ -151,6 +158,7 @@ public class FrontEndDeveloper {
 
 		// info screen functionality
 		System.out.println("Press \"n\" to display the information on a specific restaurant");
+		System.out.println("Press \"a\" to add a restaurant to the Rank");
 		System.out.println("press \"h\" to return to the Home screen");
 		System.out.println("Press \"q\" to Quit Program");
 		System.out.println("Enter one of the above options then press <ENTER>");
@@ -165,13 +173,13 @@ public class FrontEndDeveloper {
 			// user enters a rank to get restaurant info.
 			System.out.println(
 					"\nEnter a rank number of a restaurant to display all the information we have on that establishment");
-			System.out.println("Enter a rank number -only one digit between 1 and 100-");
+			System.out.println("Enter a rank Number -only one digit between 1 and " + numRestaurantsRanked + "-");
 			System.out.print("Enter rank number:");
 
 			int numButton = 0;
 			try {
 				numButton = scan.nextInt();
-				if (numButton >= 1 && numButton <= 100) {
+				if (numButton >= 1 && numButton <= numRestaurantsRanked) {
 					// have to subtract 1 to get the right rank, since it's indexed from 0.
 					// TODO: Make sure that getting the restaurant like this works
 					RestaurantInterface res = book.getRestaurant(numButton - 1);
@@ -197,7 +205,62 @@ public class FrontEndDeveloper {
 
 			return localButton;
 		}
-
+		
+					//adding a restaurant object	
+			if (localButton == 'a') {
+	
+			System.out.println("\nYOU ARE ADDING A RESTAURANT TO THE RANKING LIST!");
+			
+			Integer rank;
+			String restaurantName;
+			Integer numSales;
+			Integer avgCheck;
+			String city;
+			String state;
+			Integer numMealsServed;
+			
+			Scanner info = new Scanner(System.in);
+			
+			System.out.println ("Enter the NAME of the the restaurent you want to add: (EXAMPLE: Patty's restaurant)");
+			restaurantName = info.next();
+			System.out.println ("Enter the total sales ($): (EXAMPLE 435234)");
+			info.nextLine();
+			numSales = info.nextInt();
+			System.out.println ("Enter the Averge meal cost ($): (EXAMPLE 35)");
+			avgCheck = info.nextInt();
+			System.out.println ("Enter the city the restaurant is Located in: (EXAMPLE Madison)");
+			city = info.next();
+			System.out.println ("Enter the State the restaurant is Located in : (EXAMPLE W.I.)");
+			state = info.next();
+			System.out.println ("Enter the number of meals serviced in one year: (EXAMPLE 3242342)");
+			numMealsServed = info.nextInt();
+	
+		
+			//increasing num of restaurants
+			numRestaurantsRanked++;
+			rank = numRestaurantsRanked;
+			Restaurant addingPlace = new Restaurant(rank.toString(), restaurantName, numSales.toString(), avgCheck.toString(), city, state, numMealsServed.toString());
+			
+			//adding new restaurant from user into backend
+			book.addRestaurant(RestaurantInterface restaurant);
+			
+			//message to user
+			System.out.println("\nYou Just added the following restaurant to the list!");
+			System.out.println("Information for Restaurant Ranked Number: " + rank);
+			System.out.println("   Restaurant Name: \t\t " + addingPlace.getRestaurantName());
+			System.out.println("   Location: \t\t\t City: " + addingPlace.getCity() + "\t\tState: " + addingPlace.getState());
+			System.out.println("   Total Sales in (Dollars): \t $" + addingPlace.getNumSales());
+			System.out.println("   Total Number of Meals Served: " + addingPlace.numMealsServed());				
+			System.out.println("   Average cost Per meal: \t $" + addingPlace.getAvgCheck());
+			
+			
+			
+			info.close();
+			return 'i';	
+			}
+		
+		
+		
 		// quit program
 		if (localButton == 'q') {
 			return localButton;
@@ -272,12 +335,12 @@ public class FrontEndDeveloper {
 			// return to the info Screen********************************
 			if (userButton == 'i') {
 
-				System.out.println("\nINFORMATION SCREEN");
+				System.out.println("\nINFORMOATION SCREEN");
 				// runs the infoScreen Method
 				userButton = infoScreen(scnr, book);
 
 				// returns user back to screen
-				if (userButton == 'n') {
+				if (userButton == 'n' || userButton == 'a') {
 					;
 					userButton = 'i';
 					continue;
