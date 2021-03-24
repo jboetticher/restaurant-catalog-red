@@ -2,7 +2,6 @@ run: compile
 	java FrontEndDeveloper
 
 compile: RedBlackTree.class Restaurant.class DataReader.class Backend.class FrontEndDeveloper.class
-	javac -cp .:junit5.jar
 
 RedBlackTree.class: SortedCollectionInterface.java RedBlackTree.java
 	javac SortedCollectionInterface.java RedBlackTree.java
@@ -20,15 +19,16 @@ FrontEndDeveloper.class: FrontEndDeveloper.java
 	javac FrontEndDeveloper.java
 
 test: testData testBackend testFrontend
+	java -jar junit5.jar -cp . --scan-classpath
 
 testFrontend: compile
-	java -jar junit5.jar -cp . --scan-classpath -n TestFrontend.java
+	# Jaan didn't make his tests in junit, so it can't be compiled with junit.
 
-testBackend: compile
-	java -jar junit5.jar -cp . --scan-classpath -n TestBackend.java
+testBackend: compile BackEndDeveloperTests.java
+	javac -cp .:junit5.jar BackEndDeveloperTests.java
 
-testData: compile
-	java -jar junit5.jar -cp . --scan-classpath -n DataWranglerTests.java
+testData: compile DataWranglerTests.java
+	javac -cp .:junit5.jar DataWranglerTests.java
 
 clean:
 	$(RM) *.class
