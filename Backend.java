@@ -96,11 +96,15 @@ public class Backend implements BackendInterface {
     LinkedList<RestaurantInterface> rs = new LinkedList<>();
     int current = 0;
 
+    if(limit <= 0) return rs.stream();
+
     inOrderTraversalState(tree.root, (RedBlackTree.Node node) -> {
       if (current < limit) { rs.add(((RestaurantInterface) node.data)); }
     });
 
-    return rs.subList(0, limit).stream();
+    // limits the bounds
+    int newLimit = limit < tree.size() ? limit : tree.size();
+    return rs.subList(0, newLimit).stream();
   }
   
   /**
