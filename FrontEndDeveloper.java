@@ -169,9 +169,7 @@ private static int numRestaurantsRanked = 100; //default
 			try {
 				numButton = scan.nextInt();
 				if (numButton >= 1 && numButton <= numRestaurantsRanked) {
-					// have to subtract 1 to get the right rank, since it's indexed from 0.
-					RestaurantInterface res = book.getRestaurant(numButton - 1);
-					if(res == null) System.out.println("DAT NULL " + numButton);
+					RestaurantInterface res = book.getRestaurant(numButton);
 
 					// prints information
 					System.out.println("\nInformation for Restaurant Ranked Number: " + numButton);

@@ -74,8 +74,6 @@ public class Backend implements BackendInterface {
   @Override
   public RestaurantInterface getRestaurant(int id) {
     RedBlackTree.Node<RestaurantInterface> current = tree.root;
-    System.out.println("get restaurant id");
-    if(current == null) System.out.println("WHY DAT ROOT NULL?");
     while (current != null) {
       System.out.print(current.data.getRank() + " ");
       if (current.data.getRank() == id) {
@@ -86,8 +84,6 @@ public class Backend implements BackendInterface {
         current = current.rightChild;
       }
     }
-
-    System.out.println("returned null");
     return null;
   }
 
