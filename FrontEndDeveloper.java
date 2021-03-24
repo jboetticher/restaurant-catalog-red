@@ -48,12 +48,7 @@ private static int numRestaurantsRanked = 100; //default
 		System.out.println("Enter one of the above options then press <ENTER>");
 		System.out.print("Enter  option:");
 
-		// converts linked-list to stream with the .steam method and creates a stream
-		// object
-		// Stream<RestaurantInterface> printRanking = book.stream();
-
-		// TODO: make sure get top restaurants works
-		Stream<RestaurantInterface> printRanking = book.getTopRestaurants().stream();
+		Stream<RestaurantInterface> printRanking = book.getTopRestaurants(1000);
 
 		// gets input from user
 		char localButton = scan.next().charAt(0);
