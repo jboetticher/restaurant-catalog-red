@@ -170,8 +170,8 @@ private static int numRestaurantsRanked = 100; //default
 				numButton = scan.nextInt();
 				if (numButton >= 1 && numButton <= numRestaurantsRanked) {
 					// have to subtract 1 to get the right rank, since it's indexed from 0.
-					// TODO: Make sure that getting the restaurant like this works
 					RestaurantInterface res = book.getRestaurant(numButton - 1);
+					if(res == null) System.out.println("DAT NULL");
 
 					// prints information
 					System.out.println("\nInformation for Restaurant Ranked Number: " + numButton);
@@ -186,6 +186,9 @@ private static int numRestaurantsRanked = 100; //default
 
 			} catch(InputMismatchException e) {
 				System.out.println("NOT A VALID COMMAND, PLEASE ENTER A NUMBER");
+				return 'x';
+			} catch(NoSuchElementException e) {
+				System.out.println("NO SUCH RESTAURANT OF RANK " + numButton);
 				return 'x';
 			} catch(Exception e) {
 				System.out.println("NO SUCH RESTAURANT OF RANK " + numButton);
