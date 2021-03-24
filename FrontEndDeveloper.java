@@ -156,12 +156,7 @@ public class FrontEndDeveloper {
 		System.out.print("Enter option:");
 
 		// gets input from user
-		char localButton;
-		try {
-			localButton = scan.next().charAt(0);
-		} catch(Exception e) { 
-			localButton = 'h';
-		}
+		char localButton = scan.next().charAt(0);
 
 		// if the 'i' button is pressed, user must enter a number between (1-100)
 		if (localButton == 'n') {
