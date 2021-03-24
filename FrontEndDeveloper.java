@@ -221,7 +221,7 @@ public class FrontEndDeveloper {
 				System.out.println("Enter the Averge meal cost ($): (EXAMPLE 35)");
 				avgCheck = info.nextInt();
 				System.out.println("Enter the city the restaurant is Located in: (EXAMPLE Madison)");
-				System.out.print("");
+				info.nextLine();
 				city = info.nextLine();
 				System.out.println("Enter the State the restaurant is Located in : (EXAMPLE W.I.)");
 				state = info.nextLine();
