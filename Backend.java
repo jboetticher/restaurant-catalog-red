@@ -77,6 +77,7 @@ public class Backend implements BackendInterface {
     System.out.println("get restaurant id");
     if(current == null) System.out.println("WHY DAT ROOT NULL?");
     while (current != null) {
+      System.out.print(current.data.getRank() + " ");
       if (current.data.getRank() == id) {
         return current.data;
       } else if (current.data.getRank() > id) {
