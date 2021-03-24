@@ -102,7 +102,6 @@ private static int numRestaurantsRanked = 100; //default
 
 		// displays the states that have restaurants in the top 100
 		if (localButton == 'l') {
-			System.out.println("AHHHHHHHHHHH");
 			book.getAllStates().distinct().forEach(b -> System.out.println(b));
 		}
 
