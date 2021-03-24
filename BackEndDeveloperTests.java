@@ -64,7 +64,7 @@ public class BackEndDeveloperTests {
 	public void testGetRestaurantsByState() {
 		try {
 			BackendInterface book = new Backend(new FileReader("Independence100.csv"));
-			int count = (int) book.getRestaurantsByState("D.C.").count();
+			int count = (int) book.getRestaurantsInState("D.C.").count();
 				//.forEach(
 				//	a -> count++);
 			assertEquals(9, count);
