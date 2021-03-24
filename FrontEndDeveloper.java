@@ -38,7 +38,7 @@ private static int numRestaurantsRanked = 100; //default
 	// Method for the Rank screen---------------------------------------------------
 	// arguments are the scanner object for button functionality and the linked List
 	// of restaurant objects
-	private static char rankScreen(Scanner scan, Backend book) {
+	private static char rankScreen(Scanner scan, BackendInterface book) {
 
 		// List all Restaurants by Rank - Press "l"
 		System.out.println("press \"l\" to List ALL Restaurant by rank");
@@ -86,7 +86,7 @@ private static int numRestaurantsRanked = 100; //default
 	// Method for the Map Screen---------------------------------------------------
 	// arguments are the scanner object for button functionality and the linked List
 	// of restaurant objects
-	private static char mapScreen(Scanner scan, Backend book) {
+	private static char mapScreen(Scanner scan, BackendInterface book) {
 
 		System.out.println(
 				"press \"l\" to displays ALL the states that have restaurants in the top 100 ranking to see if your state has one of the top 100 places to eat!");
@@ -143,7 +143,7 @@ private static int numRestaurantsRanked = 100; //default
 	// Method for the info Screen---------------------------------------------------
 	// arguments are the scanner object for button functionality and the linked List
 	// of restaurant objects
-	private static char infoScreen(Scanner scan, Backend book) {
+	private static char infoScreen(Scanner scan, BackendInterface book) {
 
 		// info screen functionality
 		System.out.println("Press \"n\" to display the information on a specific restaurant");
@@ -268,7 +268,7 @@ private static int numRestaurantsRanked = 100; //default
 	public static void main(String[] args) throws FileNotFoundException, IOException, DataFormatException {
 
 		// CREATING READER OBJECT AND INPUTING CSV FILE
-		Backend book = new Backend(new FileReader("Independence100.csv"));
+		BackendInterface book = new Backend(new FileReader("Independence100.csv"));
 		// DataReader glasses = new DataReader();
 		// List<RestaurantInterface> Book = glasses.readDataSet(new
 		// FileReader("Independence100.csv"));
