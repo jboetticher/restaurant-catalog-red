@@ -254,7 +254,8 @@ public class FrontEndDeveloper {
 			System.out.println("   Total Number of Meals Served: " + addingPlace.numMealsServed());
 			System.out.println("   Average cost Per meal: \t $" + addingPlace.getAvgCheck());
 
-			info.close();
+			info.nextLine();
+			//info.close();
 			return 'i';
 		}
 
