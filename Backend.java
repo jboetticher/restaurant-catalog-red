@@ -36,15 +36,13 @@ public class Backend implements BackendInterface {
 
     for (RestaurantInterface r : restaurants) {
       tree.insert(r);
-      if (stateList.contains(r.getState()))
-        stateList.add(r.getState());
-      if (cityList.contains(r.getCity()))
-        cityList.add(r.getCity());
+      stateCityListValidation(r);
     }
   }
 
   /**
    * Traverser interface to use for the inOrderTraversalState class
+   * 
    * @author rudyb
    *
    * @param <NodeType>
@@ -55,8 +53,9 @@ public class Backend implements BackendInterface {
 
   /**
    * Traverses the tree in an inorder traversal
+   * 
    * @param node - current node
-   * @param t - traverser object to provide visit rule for the method
+   * @param t    - traverser object to provide visit rule for the method
    */
   private void inOrderTraversalState(RedBlackTree.Node<RestaurantInterface> node, Traverser t) {
     if (node.rightChild != null)
@@ -65,29 +64,31 @@ public class Backend implements BackendInterface {
     if (node.leftChild != null)
       inOrderTraversalState(node.leftChild, t);
   }
-  
+
   /**
    * Finds a restaurant by it's rank in the tree
+   * 
    * @param id - the rank of the restaurant
    * @return - the restaurant at the specified rank
    */
   @Override
   public RestaurantInterface getRestaurant(int id) {
     RedBlackTree.Node<RestaurantInterface> current = tree.root;
-    while(current != null){
-      if(current.data.getRank() == id){
+    while (current != null) {
+      if (current.data.getRank() == id) {
         return current.data;
-      } else if(current.data.getRank() > id){
+      } else if (current.data.getRank() > id) {
         current = current.leftChild;
-      } else{
+      } else {
         current = current.rightChild;
       }
     }
     return null;
   }
-  
+
   /**
    * Traverses the tree and returns a list of the top restaurants
+   * 
    * @param limit - the top number of restaurants to include
    * @return - a list of the top restaurants by rank
    */
@@ -96,17 +97,20 @@ public class Backend implements BackendInterface {
     LinkedList<RestaurantInterface> rs = new LinkedList<>();
     int current = 0;
 
-    if(limit <= 0) return rs.stream();
+    if (limit <= 0)
+      return rs.stream();
 
     inOrderTraversalState(tree.root, (RedBlackTree.Node node) -> {
-      if (current < limit) { rs.add(((RestaurantInterface) node.data)); }
+      if (current < limit) {
+        rs.add(((RestaurantInterface) node.data));
+      }
     });
 
     // limits the bounds
     int newLimit = limit < tree.size() ? limit : tree.size();
     return rs.subList(0, newLimit).stream();
   }
-  
+
   /**
    * Returns a String stream of all the restaurant names
    */
@@ -120,9 +124,10 @@ public class Backend implements BackendInterface {
 
     return rs.stream();
   }
-  
+
   /**
-   * Returns an Integer stream of the number of sales for each restaurant in order of rank
+   * Returns an Integer stream of the number of sales for each restaurant in order
+   * of rank
    */
   @Override
   public Stream<Integer> getAllNumSales() {
@@ -142,7 +147,7 @@ public class Backend implements BackendInterface {
   public Stream<String> getAllCities() {
     return cityList.stream();
   }
-  
+
   /**
    * Returns a String stream of all the states that restaurants are in
    */
@@ -171,15 +176,24 @@ public class Backend implements BackendInterface {
   @Override
   public void addRestaurant(RestaurantInterface restaurant) {
     tree.insert(restaurant);
-
-    if (stateList.contains(restaurant.getState()))
-      stateList.add(restaurant.getState());
-    if (cityList.contains(restaurant.getCity()))
-      cityList.add(restaurant.getCity());
+    stateCityListValidation(restaurant);
   }
-  
+
   /**
-   * Helper method for returning a list of all the restaurants in a particular state
+   * Validates that a restaurant's city and state are represented in the local
+   * lists.
+   * 
+   * @param restaurant the restaurant to validate.
+   */
+  private void stateCityListValidation(RestaurantInterface restaurant) {
+    if (!stateList.contains(restaurant.getState())) stateList.add(restaurant.getState());
+    if (!cityList.contains(restaurant.getCity())) cityList.add(restaurant.getCity());
+  }
+
+  /**
+   * Helper method for returning a list of all the restaurants in a particular
+   * state
+   * 
    * @param state the specified state
    * @return a list of all the restaurants in a particular state
    */
@@ -193,7 +207,7 @@ public class Backend implements BackendInterface {
 
     // Bonus: an early implementation of an anonymous class for the traversal method
     // March 22nd, 2021
-    
+
     /*
      * inOrderTraversalState(tree.root, new Traverser<RestaurantInterface,
      * RestaurantInterface>() {
@@ -204,7 +218,7 @@ public class Backend implements BackendInterface {
 
     return rs;
   }
-  
+
   /**
    * Returns a stream of restaurants in the given state
    */
@@ -214,8 +228,8 @@ public class Backend implements BackendInterface {
   }
 
   /**
-   * Returns a stream of restaurant instance(s) by name
-   * (some restaurants have the same name but are located in different cities)
+   * Returns a stream of restaurant instance(s) by name (some restaurants have the
+   * same name but are located in different cities)
    */
   @Override
   public RestaurantInterface getRestaurant(String name) {
@@ -223,12 +237,12 @@ public class Backend implements BackendInterface {
 
     inOrderTraversalState(tree.root, (RedBlackTree.Node node) -> {
       if (((RestaurantInterface) node.data).getRestaurantName().equals(name))
-        rs[0] =(RestaurantInterface) node.data;
+        rs[0] = (RestaurantInterface) node.data;
     });
 
     return rs[0];
   }
-  
+
   /**
    * Returns a list of lists of all restaurants grouped by their state
    */
@@ -236,7 +250,7 @@ public class Backend implements BackendInterface {
   public List<List<RestaurantInterface>> getAllStateRestaurants() {
     LinkedList<List<RestaurantInterface>> list = new LinkedList<>();
     for (String state : stateList) {
-        list.add(stateHelper(state));
+      list.add(stateHelper(state));
     }
     return list;
   }
