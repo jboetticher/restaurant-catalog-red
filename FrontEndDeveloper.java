@@ -117,7 +117,7 @@ private static int numRestaurantsRanked = 100; //default
 
 			for(List<RestaurantInterface> resInState : allRes) {
 				if(allRes.size() <= 0) break;
-				System.out.println("\nRestaurants in: \"" + resInState.get(0).getState() + " listed below:");
+				System.out.println("\nRestaurants in: \"" + resInState.get(0).getState() + "\" listed below:");
 				
 				for(RestaurantInterface res : resInState) {
 					System.out.println(res.getRestaurantName() + " -- Rank: " + res.getRank());
@@ -315,7 +315,7 @@ private static int numRestaurantsRanked = 100; //default
 				userButton = mapScreen(scnr, book);
 
 				// returns user back to screen
-				if (userButton == 'l' || userButton == 's') {
+				if (userButton == 'l' || userButton == 's' || userButton == 'c') {
 					userButton = 'm';
 					continue;
 				}
