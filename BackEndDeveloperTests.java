@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 /**
  * This class contains a set of tests for the front end of the Movie Mapper project.
  */
-public class BacnEndDeveloperTests {
+public class BackEndDeveloperTests {
 	
 	/*public static void main(String[] args) {
 		(new FrontEndDeveloperTests()).runTests();
@@ -43,10 +43,7 @@ public class BacnEndDeveloperTests {
 	public void testGetTopRestaurants() {
 		try {
 			BackendInterface book = new Backend(new FileReader("Independence100.csv"));
-			int count = 0;
-
-			book.getTopRestaurants(10).filter(b -> b.getRank() <= 10).forEach(
-					a -> count++);
+			int count = (int) book.getTopRestaurants(10).filter(b -> b.getRank() <= 10).count();
 			assertEquals(10, count);
 			//if (count == 10) return true;
 			//else return false;
@@ -67,7 +64,7 @@ public class BacnEndDeveloperTests {
 	public void testGetRestaurantsByState() {
 		try {
 			BackendInterface book = new Backend(new FileReader("Independence100.csv"));
-			int count = book.getRestaurantsByState("D.C.").count();
+			int count = (int) book.getRestaurantsByState("D.C.").count();
 				//.forEach(
 				//	a -> count++);
 			assertEquals(9, count);
@@ -90,7 +87,7 @@ public class BacnEndDeveloperTests {
 		try {
 			BackendInterface book = new Backend(new FileReader("Independence100.csv"));
 			
-			int count = book.getAllRestaurantNames().count();
+			int count = (int) book.getAllRestaurantNames().count();
 			
 
 
@@ -115,7 +112,7 @@ public class BacnEndDeveloperTests {
 		try {
 			BackendInterface book = new Backend(new FileReader("Independence100.csv"));
 			
-			int count = book.getNumMealsServed().count();
+			int count = (int) book.getNumMealsServed().count();
 
 			assertEquals(100, count);
 			//if (count == 10) return true;
@@ -137,7 +134,7 @@ public class BacnEndDeveloperTests {
 		try {
 			BackendInterface book = new Backend(new FileReader("Independence100.csv"));
 			
-			int count = book.getAllNumSales().count();
+			int count = (int) book.getAllNumSales().count();
 
 			assertEquals(100, count);
 			//if (count == 10) return true;
