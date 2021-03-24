@@ -107,48 +107,42 @@ private static int numRestaurantsRanked = 100; //default
 
 		// displays the states that have restaurants in the top 100
 		if (localButton == 'l') {
-			book.getAllStates().stream().distinct().forEach(b -> System.out.println(b));
-			return 'l';
+			book.getAllStates().distinct().forEach(b -> System.out.println(b));
 		}
 
 		// displays the cities that have restaurants in the top 100
 		else if (localButton == 'c') {
-			book.getAllCities().stream().distinct().forEach(b -> System.out.println(b));
+			book.getAllCities().distinct().forEach(b -> System.out.println(b));
 		}
 
 		// enter a state to display list of restaurant in that state
 		else if (localButton == 's') {
 
-			//TODO: make sure that this function works & finish the rest of the function
-			List<List<RestaurantInterface>> res = book.getRestaurantsByState();
+			List<List<RestaurantInterface>> allRes = book.getAllStateRestaurants();
 
-			printStates.map(a -> a.getState()) // gets state and turns it into a string
-					.distinct().forEach(b -> listOfStates.add(b));
-
-			while (listOfStates.size() > 0) {
-				String currentState = listOfStates.pop();
-				System.out.println("\nRestaurants in: \"" + currentState + "\n listed below:");
-				for (int i = 0; i < book.size(); i++) {
-					String check = book.get(i).getState();
-					if (currentState.equals(check)) {
-						System.out.println(book.get(i).getRestaurantName() + " -- Rank: " + book.get(i).getRank());
-					}
+			for(List<RestaurantInterface> resInState : allRes) {
+				if(allRes.size() <= 0) break;
+				System.out.println("\nRestaurants in: \"" + resInState.get(0).getState() + " listed below:");
+				
+				for(RestaurantInterface res : resInState) {
+					System.out.println(res.getRestaurantName() + " -- Rank: " + res.getRank());
 				}
 			}
-			return 's';
 		}
 
 		// quit program
-		else if (localButton == 'q') {
-			return localButton;
-		}
+		else if (localButton == 'q') return localButton;
 
 		// return to the home screen
 		else if (localButton == 'h') {
 			System.out.println("");
-		} else {
+		} 
+		
+		else {
 			return 'x';
 		}
+
+		return localButton;
 	}
 
 	// Method for the info Screen---------------------------------------------------
