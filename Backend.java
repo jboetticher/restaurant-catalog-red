@@ -80,7 +80,7 @@ public class Backend implements BackendInterface {
       System.out.print(current.data.getRank() + " ");
       if (current.data.getRank() == id) {
         return current.data;
-      } else if (current.data.getRank() > id) {
+      } else if (current.data.getRank() < id) {
         current = current.leftChild;
       } else {
         current = current.rightChild;
