@@ -210,7 +210,9 @@ public class FrontEndDeveloper {
 			String state;
 			Integer numMealsServed;
 
-			Scanner info = new Scanner(System.in);
+			//Scanner info = new Scanner(System.in);
+			Scanner info = scan;
+			scan.nextLine();
 
 			try {
 				System.out.println("Enter the NAME of the the restaurent you want to add: (EXAMPLE: Patty's restaurant)");
@@ -229,7 +231,7 @@ public class FrontEndDeveloper {
 				numMealsServed = info.nextInt();
 			} catch(Exception e) {
 				System.out.println("INCORRECT INPUT, PLEASE TRY AGAIN");
-				info.close();
+				//info.close();
 				return 'x';
 			}
 
@@ -331,7 +333,7 @@ public class FrontEndDeveloper {
 			if (userButton == 'i') {
 
 				System.out.println("\nINFORMOATION SCREEN");
-				// runs the infoScreen Method
+				// runs the infoScreen Method, checks to make sure scanner is good
 				userButton = infoScreen(scnr, book);
 
 				// returns user back to screen
