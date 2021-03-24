@@ -85,6 +85,8 @@ public class Backend implements BackendInterface {
         current = current.rightChild;
       }
     }
+
+    System.out.println("returned null");
     return null;
   }
 
