@@ -22,8 +22,8 @@ import java.util.NoSuchElementException;
 
 public class FrontEndDeveloper {
 
-private static int numRestaurantsRanked = 100; //default
-	
+	private static int numRestaurantsRanked = 100; // default
+
 	// Method that displays ONLY the TEXT of the interactive menu
 	public static void homeScreen() {
 		System.out.println("HOME SCREEN");
@@ -115,24 +115,26 @@ private static int numRestaurantsRanked = 100; //default
 
 			List<List<RestaurantInterface>> allRes = book.getAllStateRestaurants();
 
-			for(List<RestaurantInterface> resInState : allRes) {
-				if(allRes.size() <= 0) break;
+			for (List<RestaurantInterface> resInState : allRes) {
+				if (allRes.size() <= 0)
+					break;
 				System.out.println("\nRestaurants in: \"" + resInState.get(0).getState() + "\" listed below:");
-				
-				for(RestaurantInterface res : resInState) {
+
+				for (RestaurantInterface res : resInState) {
 					System.out.println(res.getRestaurantName() + " -- Rank: " + res.getRank());
 				}
 			}
 		}
 
 		// quit program
-		else if (localButton == 'q') return localButton;
+		else if (localButton == 'q')
+			return localButton;
 
 		// return to the home screen
 		else if (localButton == 'h') {
 			System.out.println("");
-		} 
-		
+		}
+
 		else {
 			return 'x';
 		}
@@ -174,33 +176,32 @@ private static int numRestaurantsRanked = 100; //default
 					// prints information
 					System.out.println("\nInformation for Restaurant Ranked Number: " + numButton);
 					System.out.println("   Restaurant Name: \t\t " + res.getRestaurantName());
-					System.out.println("   Location: \t\t\t City: " + res.getCity() + "\t\tState: "
-							+ res.getState());
+					System.out.println("   Location: \t\t\t City: " + res.getCity() + "\t\tState: " + res.getState());
 					System.out.println("   Total Sales in (Dollars): \t $" + res.getNumSales());
 					System.out.println("   Total Number of Meals Served: " + res.numMealsServed());
 					System.out.println("   Average cost Per meal: \t $" + res.getAvgCheck());
 				} else
 					throw new Exception("Not a valid rank");
 
-			} catch(InputMismatchException e) {
+			} catch (InputMismatchException e) {
 				System.out.println("NOT A VALID COMMAND, PLEASE ENTER A NUMBER");
 				return 'x';
-			} catch(NoSuchElementException e) {
+			} catch (NoSuchElementException e) {
 				System.out.println("NO SUCH RESTAURANT OF RANK " + numButton);
 				return 'x';
-			} catch(Exception e) {
+			} catch (Exception e) {
 				System.out.println("NO SUCH RESTAURANT OF RANK " + numButton);
 				return 'x';
 			}
 
 			return localButton;
 		}
-		
-					//adding a restaurant object	
-			if (localButton == 'a') {
-	
+
+		// adding a restaurant object
+		if (localButton == 'a') {
+
 			System.out.println("\nYOU ARE ADDING A RESTAURANT TO THE RANKING LIST!");
-			
+
 			Integer rank;
 			String restaurantName;
 			Integer numSales;
@@ -208,49 +209,52 @@ private static int numRestaurantsRanked = 100; //default
 			String city;
 			String state;
 			Integer numMealsServed;
-			
+
 			Scanner info = new Scanner(System.in);
-			
-			System.out.println ("Enter the NAME of the the restaurent you want to add: (EXAMPLE: Patty's restaurant)");
-			restaurantName = info.next();
-			System.out.println ("Enter the total sales ($): (EXAMPLE 435234)");
-			info.nextLine();
-			numSales = info.nextInt();
-			System.out.println ("Enter the Averge meal cost ($): (EXAMPLE 35)");
-			avgCheck = info.nextInt();
-			System.out.println ("Enter the city the restaurant is Located in: (EXAMPLE Madison)");
-			city = info.next();
-			System.out.println ("Enter the State the restaurant is Located in : (EXAMPLE W.I.)");
-			state = info.next();
-			System.out.println ("Enter the number of meals serviced in one year: (EXAMPLE 3242342)");
-			numMealsServed = info.nextInt();
-	
-		
-			//increasing num of restaurants
+
+			try {
+				System.out.println("Enter the NAME of the the restaurent you want to add: (EXAMPLE: Patty's restaurant)");
+				restaurantName = info.next();
+				System.out.println("Enter the total sales ($): (EXAMPLE 435234)");
+				info.nextLine();
+				numSales = info.nextInt();
+				System.out.println("Enter the Averge meal cost ($): (EXAMPLE 35)");
+				avgCheck = info.nextInt();
+				System.out.println("Enter the city the restaurant is Located in: (EXAMPLE Madison)");
+				city = info.nextLine();
+				System.out.println("Enter the State the restaurant is Located in : (EXAMPLE W.I.)");
+				state = info.nextLine();
+				System.out.println("Enter the number of meals serviced in one year: (EXAMPLE 3242342)");
+				numMealsServed = info.nextInt();
+			} catch(Exception e) {
+				System.out.println("INCORRECT INPUT, PLEASE TRY AGAIN");
+				info.close();
+				return 'x';
+			}
+
+			// increasing num of restaurants
 			numRestaurantsRanked++;
 			rank = numRestaurantsRanked;
-			Restaurant addingPlace = new Restaurant(rank.toString(), restaurantName, numSales.toString(), avgCheck.toString(), city, state, numMealsServed.toString());
-			
-			//adding new restaurant from user into backend
+			Restaurant addingPlace = new Restaurant(rank.toString(), restaurantName, numSales.toString(),
+					avgCheck.toString(), city, state, numMealsServed.toString());
+
+			// adding new restaurant from user into backend
 			book.addRestaurant(addingPlace);
-			
-			//message to user
+
+			// message to user
 			System.out.println("\nYou Just added the following restaurant to the list!");
 			System.out.println("Information for Restaurant Ranked Number: " + rank);
 			System.out.println("   Restaurant Name: \t\t " + addingPlace.getRestaurantName());
-			System.out.println("   Location: \t\t\t City: " + addingPlace.getCity() + "\t\tState: " + addingPlace.getState());
+			System.out.println(
+					"   Location: \t\t\t City: " + addingPlace.getCity() + "\t\tState: " + addingPlace.getState());
 			System.out.println("   Total Sales in (Dollars): \t $" + addingPlace.getNumSales());
-			System.out.println("   Total Number of Meals Served: " + addingPlace.numMealsServed());				
+			System.out.println("   Total Number of Meals Served: " + addingPlace.numMealsServed());
 			System.out.println("   Average cost Per meal: \t $" + addingPlace.getAvgCheck());
-			
-			
-			
+
 			info.close();
-			return 'i';	
-			}
-		
-		
-		
+			return 'i';
+		}
+
 		// quit program
 		if (localButton == 'q') {
 			return localButton;
