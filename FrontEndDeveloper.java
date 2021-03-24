@@ -242,7 +242,7 @@ private static int numRestaurantsRanked = 100; //default
 			Restaurant addingPlace = new Restaurant(rank.toString(), restaurantName, numSales.toString(), avgCheck.toString(), city, state, numMealsServed.toString());
 			
 			//adding new restaurant from user into backend
-			book.addRestaurant(RestaurantInterface restaurant);
+			book.addRestaurant(addingPlace);
 			
 			//message to user
 			System.out.println("\nYou Just added the following restaurant to the list!");
