@@ -31,8 +31,8 @@ public class Backend implements BackendInterface {
     // restaurant objects, and then in a for-loop just add the restaurants to the
     // tree
 
-    DataReader data = new DataReader(file);
-    LinkedList<RestaurantInterface> restaurants = data.readDataSet(file);
+    DataReader data = new DataReader();
+    List<RestaurantInterface> restaurants = data.readDataSet(file);
 
     for (RestaurantInterface r : restaurants) {
       tree.insert(r);
